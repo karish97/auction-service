@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Serverless Framework Project - Auction Service",
   "author": "Karishma Kesari",
-  "license": "MIT",
+  "license": "",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^9.1.3",
@@ -15,6 +15,7 @@
     "webpack": "^5.91.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.1613.0"
+    "aws-sdk": "^2.1613.0",
+    "uuid": "^9.0.1"
   }
 }

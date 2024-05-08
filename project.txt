@@ -1,0 +1,5 @@
+DynamoDB
+    scan vs query
+    simple primary key = partition key 
+    composite primary key = partition key + sort key
+    primary index vs secondary index

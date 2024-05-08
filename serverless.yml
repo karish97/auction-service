@@ -10,14 +10,28 @@ provider:
   memorySize: 256
   stage: ${opt:stage, 'dev'}
   region: ap-south-1
+  environment:
+    AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
+  iamRoleStatements:
+    - ${file(iam/AuctionsTableIAM.yml):AuctionsTableIAM}
+    
+resources:
+  Resources:
+    AuctionsTable: ${file(resources/AuctionsTable.yml):AuctionsTable}
   
 functions:
-  hello:
-    handler: src/handlers/hello.handler
+  createAuction:
+    handler: src/handlers/createAuction.handler
     events:
       - http:
-          method: GET
-          path: /hello
+          method: POST
+          path: /auction
+
+custom:
+  AuctionsTable:
+    name: !Ref AuctionsTable
+    arn: !GetAtt AuctionsTable.Arn
 
 # The serverless-bundle reduces the deployment packages size by creating small bundles using webpacks and the serverless-pseudo-parameters helps to access AWS environment information. Both plugins help to streamline the development and deployment process for serverless applications.
-# The stage defines the stage of deployment of the application. The ${opt:stage} is used as referenece variable in yaml.
+# The stage defines the stage of deployment of the application. The ${opt:stage} and ${self:provider.stage} is used as referenece variable in yaml.
+# The serverless-domain-manager, serverless-offline and serverless-plugin-typescript are some examples of plugin.
